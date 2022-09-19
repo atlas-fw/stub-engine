@@ -14,7 +14,14 @@ import org.objectweb.asm.tree.ClassNode
 object DefaultClassGenerator : IGenerator<MappingClassData, ClassNode> {
     override fun generate(engine: StubEngine, data: MappingClassData): ClassNode {
         val node = ClassNode(Opcodes.ASM9)
-        node.visit(Opcodes.V1_5, )
+        node.visit(
+            Opcodes.V1_5,
+            Opcodes.ACC_PUBLIC,
+            data.names[0], //TODO: implement global dictionary override
+            data.signature,
+            data.superClass,
+            data.interfaces.toTypedArray()
+        )
 
         return node
     }
