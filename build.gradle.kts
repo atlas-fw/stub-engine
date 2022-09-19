@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter
 plugins {
     with(Plugins) {
         // Language Plugins
+        application
         `java-library`
         kotlin("jvm") version KOTLIN
 
@@ -33,14 +34,13 @@ plugins {
     }
 }
 
+// Application Main Class
+val mainClassName = "me.xtrm.atlas.stubengine.MainKt"
+
 // What JVM version should this project compile to
 val targetVersion = "1.8"
 // What JVM version this project is written in
 val sourceVersion = "1.8"
-// Which source-sets to add.
-val additionalSourceSets: Array<String> = arrayOf(
-    "api"
-)
 
 // Handle configurations lower down
 configurations()
@@ -51,8 +51,18 @@ dependencies {
 
     with(Dependencies) {
         kotlinModules.forEach {
-            implementation("org.jetbrains.kotlin", "kotlin-$it", KOTLIN)
+            include("org.jetbrains.kotlin", "kotlin-$it", KOTLIN)
         }
+
+        listOf("asm", "asm-tree").forEach {
+            include("org.ow2.asm", it, ASM)
+        }
+
+        include("me.xtrm.atlas", "annotations", "0.0.1")
+
+        include("io.github.microutils", "kotlin-logging-jvm", KOTLIN_LOGGING)
+        include("ch.qos.logback", "logback-classic", LOGBACK)
+
         testImplementation("org.jetbrains.kotlin", "kotlin-test", KOTLIN)
     }
 }
@@ -88,31 +98,14 @@ fun Project.configurations() {
 group = Coordinates.GROUP
 version = Coordinates.VERSION
 
-// Generate the additional source sets
-additionalSourceSets.forEach(::createSourceSet)
-
-fun createSourceSet(name: String, sourceRoot: String = "src/$name") {
-    sourceSets {
-        val main by sourceSets
-        val test by sourceSets
-
-        val sourceSet = create(name) {
-            java.srcDir("$sourceRoot/kotlin")
-            resources.srcDir("$sourceRoot/resources")
-
-            this.compileClasspath += main.compileClasspath
-            this.runtimeClasspath += main.runtimeClasspath
-        }
-
-        arrayOf(main, test).forEach {
-            it.compileClasspath += sourceSet.output
-            it.runtimeClasspath += sourceSet.output
-        }
-    }
-}
-
 // The latest commit ID
 val buildRevision: String = grgit.log()[0].id ?: "dev"
+
+mainClassName.let { name ->
+    application {
+        mainClass.set(name)
+    }
+}
 
 // Disable unneeded rules
 ktlint {
@@ -217,6 +210,7 @@ tasks {
         with(Coordinates) {
             mapOf(
                 "Created-By" to "$javaVersion ($javaVendor $javaVmVersion)",
+
                 "Build-Date" to buildDate,
                 "Build-Time" to buildTime,
                 "Build-Revision" to buildRevision,
@@ -224,7 +218,6 @@ tasks {
                 "Specification-Title" to project.name,
                 "Specification-Version" to normalizeVersion(project.version.toString()),
                 "Specification-Vendor" to VENDOR,
-
                 "Implementation-Title" to NAME,
                 "Implementation-Version" to VERSION,
                 "Implementation-Vendor" to VENDOR,
@@ -233,29 +226,14 @@ tasks {
                 "Bundle-Description" to DESC,
                 "Bundle-DocURL" to "https://$GIT_HOST/$REPO_ID",
                 "Bundle-Vendor" to VENDOR,
-                "Bundle-SymbolicName" to "$GROUP.$NAME"
+                "Bundle-SymbolicName" to "$GROUP.$NAME",
+
+                "Main-Class" to mainClassName,
             ).forEach { (k, v) ->
                 manifest.attributes[k] = v
             }
         }
-
-        additionalSourceSets.forEach {
-            from(sourceSets[it].output)
-        }
         from("LICENSE")
-    }
-
-    additionalSourceSets.forEach {
-        // Custom artifact, only including the output of
-        // the source set and the LICENSE file.
-        create(it + "Jar", Jar::class) {
-            group = "build"
-
-            archiveClassifier.set(it)
-            from(sourceSets[it].output)
-
-            from("LICENSE")
-        }
     }
 
     // Source artifact, including everything the 'main' does but not compiled.
@@ -264,10 +242,6 @@ tasks {
 
         archiveClassifier.set("sources")
         from(sourceSets["main"].allSource)
-
-        additionalSourceSets.forEach {
-            from(sourceSets[it].allSource)
-        }
 
         this.manifest.from(jar.get().manifest)
 
@@ -294,10 +268,6 @@ tasks {
         this.configurations.clear()
         this.configurations += include
 
-        // Add the API source set to the ShadowJar
-        additionalSourceSets.forEach {
-            from(sourceSets[it].output)
-        }
         from("LICENSE")
 
         this.archiveClassifier.set(ShadowJar.classifier)
@@ -331,11 +301,7 @@ tasks {
 val defaultArtifactTasks = arrayOf(
     tasks["sourcesJar"],
     tasks["javadocJar"]
-).also { arr ->
-    additionalSourceSets.forEach { set ->
-        arr.plus(tasks[set + "Jar"])
-    }
-}
+)
 
 // Declare the artifacts
 artifacts {

@@ -12,6 +12,9 @@ object Plugins {
 
 object Dependencies {
     const val KOTLIN = kotlinVersion
+    const val KOTLIN_LOGGING = "2.0.11"
+    const val LOGBACK = "1.2.6"
+    const val ASM = "9.3"
 
     val kotlinModules = arrayOf("stdlib")
 }

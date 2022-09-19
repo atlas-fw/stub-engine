@@ -1,12 +1,12 @@
 object Coordinates {
-    const val NAME = "kotlin-template"
-    const val DESC = "Project description."
-    const val VENDOR = "Stardust Enterprises"
+    const val NAME = "stub-generator"
+    const val DESC = "Generator library utilized for atlas-gradle's stub classes creation."
+    const val VENDOR = "xtrm"
 
     const val GIT_HOST = "github.com"
-    const val REPO_ID = "stardust-enterprises/$NAME"
+    const val REPO_ID = "atlas-fw/$NAME"
 
-    const val GROUP = "fr.stardustenterprises"
+    const val GROUP = "me.xtrm.atlas"
     const val VERSION = "0.0.1"
 }
 
@@ -15,7 +15,7 @@ object Pom {
         License("ISC License", "https://opensource.org/licenses/ISC")
     )
     val developers = arrayOf(
-        Developer("dev1")
+        Developer("xtrm")
     )
 }
 

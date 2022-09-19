@@ -1,4 +1,4 @@
-rootProject.name = "kotlin-template"
+rootProject.name = "stub-engine"
 
 pluginManagement.repositories {
     mavenLocal()
