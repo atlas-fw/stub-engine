@@ -1,7 +1,7 @@
-package me.xtrm.atlas.stubengine
+package me.xtrm.atlas.stubborn
 
-import me.xtrm.atlas.stubengine.data.parser.ClasspathParser
-import me.xtrm.atlas.stubengine.generator.DefaultClassGenerator
+import me.xtrm.atlas.stubborn.data.parser.ClasspathParser
+import me.xtrm.atlas.stubborn.generator.DefaultClassGenerator
 import mu.KotlinLogging
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
@@ -18,12 +18,14 @@ data class StubEngine(
     val debug: Boolean = false,
 ): Runnable {
     companion object {
-        private val logger = KotlinLogging.logger {}
+        private val logger by lazy {
+            KotlinLogging.logger {}.also {
+                it.info { "Initializing Atlas Framework's stub-engine..." }
+            }
+        }
     }
 
     override fun run() {
-        logger.info("Running Atlas Framework's stub-engine...")
-
         if (inputFiles.isEmpty()) {
             throw IllegalArgumentException("No input files provided.")
         }

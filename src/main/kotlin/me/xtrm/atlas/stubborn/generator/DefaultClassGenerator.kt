@@ -1,7 +1,7 @@
-package me.xtrm.atlas.stubengine.generator
+package me.xtrm.atlas.stubborn.generator
 
-import me.xtrm.atlas.stubengine.StubEngine
-import me.xtrm.atlas.stubengine.data.MappingClassData
+import me.xtrm.atlas.stubborn.StubEngine
+import me.xtrm.atlas.stubborn.data.FacadeClassData
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode
 
@@ -11,8 +11,8 @@ import org.objectweb.asm.tree.ClassNode
  * @author xtrm
  * @since 0.0.1
  */
-object DefaultClassGenerator : IGenerator<MappingClassData, ClassNode> {
-    override fun generate(engine: StubEngine, data: MappingClassData): ClassNode {
+object DefaultClassGenerator : IGenerator<FacadeClassData, ClassNode> {
+    override fun generate(engine: StubEngine, data: FacadeClassData): ClassNode {
         val node = ClassNode(Opcodes.ASM9)
         node.visit(
             Opcodes.V1_5,

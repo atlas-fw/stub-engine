@@ -1,4 +1,4 @@
-package me.xtrm.atlas.stubengine.tests.mappings;
+package me.xtrm.atlas.stubborn.tests.mappings;
 
 import me.xtrm.atlas.annotations.mapping.Map;
 

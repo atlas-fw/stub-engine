@@ -1,10 +1,10 @@
-# stub-engine [![Build][badge-github-ci]][project-gradle-ci] [![Maven Central][badge-mvnc]][project-mvnc]
+# stubborn [![Build][badge-github-ci]][project-gradle-ci] [![Maven Central][badge-mvnc]][project-mvnc]
 
 Generator library utilized for [atlas-gradle][atlas-gradle]'s stub classes creation.
 
 # importing
 
-you can import [stub-engine][project-url] from [maven central][mvnc] just by adding it to your dependencies:
+you can import [stubborn][project-url] from [maven central][mvnc] just by adding it to your dependencies:
 
 ## gradle
 
@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("me.xtrm.atlas:stub-engine.xml:0.0.1")
+    implementation("me.xtrm.atlas:stub-engine:0.0.1")
 }
 ```
 
@@ -22,9 +22,9 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>me.xtrm.atlas</groupId>
-    <artifactId>stub-engine</artifactId>
-    <version>0.0.1</version>
+    <groupId>com.github.atlas-fw</groupId>
+    <artifactId>stubborn</artifactId>
+    <version>trunk-SNAPSHOT</version>
 </dependency>
 ```
 

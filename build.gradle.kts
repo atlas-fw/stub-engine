@@ -58,10 +58,12 @@ dependencies {
             include("org.ow2.asm", it, ASM)
         }
 
-        include("me.xtrm.atlas", "annotations", "0.0.1")
+        include("com.github.atlas-fw", "annotations", "a63069a7b4")
+        include("com.github.atlas-fw", "metadata", "f63acb4e5d")
 
         include("io.github.microutils", "kotlin-logging-jvm", KOTLIN_LOGGING)
         include("ch.qos.logback", "logback-classic", LOGBACK)
+        include("com.github.ajalt.clikt", "clikt", CLIKT)
 
         testImplementation("org.jetbrains.kotlin", "kotlin-test", KOTLIN)
     }

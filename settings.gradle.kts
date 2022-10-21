@@ -1,4 +1,4 @@
-rootProject.name = "stub-engine"
+rootProject.name = "stubborn"
 
 pluginManagement.repositories {
     mavenLocal()

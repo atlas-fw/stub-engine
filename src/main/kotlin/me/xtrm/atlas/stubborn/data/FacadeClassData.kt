@@ -1,4 +1,4 @@
-package me.xtrm.atlas.stubengine.data
+package me.xtrm.atlas.stubborn.data
 
 import java.lang.reflect.Modifier
 
@@ -8,12 +8,12 @@ import java.lang.reflect.Modifier
  * @author xtrm
  * @since 0.0.1
  */
-data class MappingClassData(
+data class FacadeClassData(
     override val names: List<String>,
     val modifiers: Int = Modifier.PUBLIC,
     val superClass: String = "java/lang/Object",
     val interfaces: List<String> = emptyList(),
     val signature: String? = null,
-    val fields: List<MappingMemberData> = emptyList(),
-    val methods: List<MappingMemberData> = emptyList(),
-) : IMappingData
+    val fields: List<FacadeMemberData> = emptyList(),
+    val methods: List<FacadeMemberData> = emptyList(),
+) : IFacadeData

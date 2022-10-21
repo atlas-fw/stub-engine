@@ -1,6 +1,6 @@
 object Coordinates {
-    const val NAME = "stub-generator"
-    const val DESC = "Generator library utilized for atlas-gradle's stub classes creation."
+    const val NAME = "stubborn"
+    const val DESC = "Stub-class generation program/library utilized by the atlas-gradle buildtool."
     const val VENDOR = "xtrm"
 
     const val GIT_HOST = "github.com"
