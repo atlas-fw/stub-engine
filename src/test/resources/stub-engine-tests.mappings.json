@@ -1,0 +1,7 @@
+{
+    "schemaVersion": 0,
+    "basePackage": "me.xtrm.atlas.stubengine.tests.mappings",
+    "mappings": [
+        "java.TestMapping"
+    ]
+}

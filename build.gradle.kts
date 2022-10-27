@@ -34,13 +34,13 @@ plugins {
     }
 }
 
-// Application Main Class
-val mainClassName = "me.xtrm.atlas.stubengine.MainKt"
-
 // What JVM version should this project compile to
 val targetVersion = "1.8"
 // What JVM version this project is written in
 val sourceVersion = "1.8"
+
+// Application Main Class
+val mainClassName = "enterprises.stardust.atlas.stub.MainKt"
 
 // Handle configurations lower down
 configurations()
